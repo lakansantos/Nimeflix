@@ -3,11 +3,19 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Roboto', sans-serif;
- }
+}
+
+body::-webkit-scrollbar{
+  background: #0a192f;
+  width: .2em;
+}
+body::-webkit-scrollbar-thumb{
+  background: white;
+}
 
 .App{
   /* display: grid; */
-  background: #333;
+  background: #0a192f;
   /* grid-template: 
   "banner banner banner" 20%
   "rowsContainer rowsContainer rowsContainer" 1fr; */
@@ -19,6 +27,7 @@
   grid-area: rowsContainer; */
 }
 .banner {
+  height: 50vh;
 }
 
 .img-container::-webkit-scrollbar{

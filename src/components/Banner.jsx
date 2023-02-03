@@ -9,7 +9,7 @@ const Banner = () => {
     const [error, setError] = useState('');
 
     const fetchTrending = useCallback(() => {
-        fetch(requests.trendingData)
+        fetch(requests.popularData)
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => setError(error));
@@ -17,14 +17,27 @@ const Banner = () => {
     }, [])
 
     useEffect(() => {
-        
+
         fetchTrending();
 
     }, [fetchTrending])
 
+    let coverImages = []
 
+    if(data){
+        coverImages.push(data.results.map(result => result.cover))
+        console.log(coverImages[0][0])
+    }
     return (
-        <div className="banner">
+        <div className="banner border border-solid border-white" style={
+            {
+                backgroundImage: `url(https://s4.anilist.co/file/anilistcdn/media/anime/banner/16498-8jpFCOcDmneX.jpg)`,
+                backgroundSize : 'cover',
+                backgroundPosition: 'center',
+                objectFit: 'fixed'
+                
+            }
+        }>
             <Navbar />
             <h1>This is a banner</h1>
         </div>
