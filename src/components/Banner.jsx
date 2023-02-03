@@ -38,7 +38,7 @@ const Banner = () => {
         setTimeout(() => {
             changeIndex((currentIndex + 1));
             
-        }, 1000);
+        }, 5000);
 
         if(currentIndex >= coverImages.length){
             changeIndex(0)
@@ -54,7 +54,7 @@ const Banner = () => {
                 backgroundImage: `url(${coverImages[currentIndex]})`,
                 backgroundSize : 'cover',
                 backgroundPosition: 'center',
-                objectFit: 'fixed'   
+
             }
         }>
             <Navbar />

@@ -28,6 +28,7 @@ body::-webkit-scrollbar-thumb{
 }
 .banner {
   height: 70vh;
+  transition: .3s;
 }
 
 .img-container::-webkit-scrollbar{
