@@ -1,13 +1,12 @@
 import React from "react";
 import Navbar from "./Navbar";
-
 import requests from "../assets/Requests";
 import { useState, useEffect, useCallback } from "react";
 
 const Banner = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState('');
-
+    let [currentIndex, changeIndex] = useState(0)
     const fetchTrending = useCallback(() => {
         fetch(requests.popularData)
             .then(response => response.json())
@@ -25,21 +24,43 @@ const Banner = () => {
     let coverImages = []
 
     if(data){
-        coverImages.push(data.results.map(result => result.cover))
-        console.log(coverImages[0][0])
+        let getCoverImages = data.results.map(result => result.cover)
+
+        for(let i = 0; i < getCoverImages.length; i++){
+            coverImages.push(getCoverImages[i])
+        }
+
+       
+    
+
     }
+    useEffect(() => {
+        setTimeout(() => {
+            changeIndex((currentIndex + 1));
+            
+        }, 1000);
+
+        if(currentIndex >= coverImages.length){
+            changeIndex(0)
+        }
+    }, [currentIndex])
+ 
+
+
+
     return (
-        <div className="banner border border-solid border-white" style={
+        <div className="banner" style={
             {
-                backgroundImage: `url(https://s4.anilist.co/file/anilistcdn/media/anime/banner/16498-8jpFCOcDmneX.jpg)`,
+                backgroundImage: `url(${coverImages[currentIndex]})`,
                 backgroundSize : 'cover',
                 backgroundPosition: 'center',
-                objectFit: 'fixed'
-                
+                objectFit: 'fixed'   
             }
         }>
             <Navbar />
             <h1>This is a banner</h1>
+            <p>Movie Title</p>
+            <p>Movie description</p>
         </div>
     )
 }

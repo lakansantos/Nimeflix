@@ -27,10 +27,12 @@ body::-webkit-scrollbar-thumb{
   grid-area: rowsContainer; */
 }
 .banner {
-  height: 50vh;
+  height: 70vh;
 }
 
 .img-container::-webkit-scrollbar{
   display: none;
 }
 
+
+ 
