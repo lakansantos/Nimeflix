@@ -2,33 +2,22 @@ import React from "react";
 import { Skeleton } from '@mui/material';
 
 
-const SkeletonTemplate = () => (
-    <>
-        <div className="w-1/5">      
-            <Skeleton variant="rectangular" width="100%" height="80%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>                  
-            <Skeleton width="20%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
-        </div>
+const SkeletonTemplate = () => {
+    let divTemplates = [];
 
-        <div className="w-1/5">                        
-            <Skeleton variant="rectangular" width="100%" height="80%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>         
-            <Skeleton width="20%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
-        </div>
+    for(let i = 0; i < 7; i++){
+        divTemplates.push(
+            <div className="w-1/6" key={i}>      
+                <Skeleton variant="rectangular" width="100%" height="90%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>                  
+                <Skeleton width="50%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
+            </div>
+        )
+    }
 
-        <div className="w-1/5">
-            <Skeleton variant="rectangular" width="100%" height="80%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>                                 
-            <Skeleton width="20%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
-        </div>
+    return divTemplates;
 
-        <div className="w-1/5">
-            <Skeleton variant="rectangular" width="100%" height="80%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>                                 
-            <Skeleton width="20%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
-        </div>
+}
 
-        <div className="w-1/5">                        
-            <Skeleton variant="rectangular" width="100%" height="80%"  style={{background: 'rgba(201, 201, 201, .3)'}}/>         
-            <Skeleton width="20%" style={{background: 'rgba(201, 201, 201, .3)'}}/>
-        </div>
-    </>
-)
+
 
 export default SkeletonTemplate;

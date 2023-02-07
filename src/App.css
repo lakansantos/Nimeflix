@@ -28,7 +28,7 @@ body::-webkit-scrollbar-thumb{
 }
 .banner {
   height: 70vh;
-  transition: 1s;
+  transition: 1s ease-out;
 }
 
 
