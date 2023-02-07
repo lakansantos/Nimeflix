@@ -1,5 +1,6 @@
 
 import React, { useCallback, useState, useEffect } from "react";
+import SkeletonTemplate from "./SkeletonTemplate";
 
 const Rows = ({title, fetchURL}) => {
     const [data, setData] = useState(null)
@@ -18,8 +19,9 @@ const Rows = ({title, fetchURL}) => {
         fetchData()
         
     }, [fetchData])
-    if(data){
-        return(
+    
+    
+        return data?(
             <div className="Rows h-full w-full py-10">
                 <h1 className="text-white text-4xl my-4">{title}</h1>
                 <div className="img-container h-fit w-full flex flex-row gap-5 overflow-auto">
@@ -33,10 +35,12 @@ const Rows = ({title, fetchURL}) => {
                 ))};
                 </div>
             </div>
-        ) 
-    } else {
-        <h1>Loading, please wait a moment! ...</h1>
-    }
+        ) : (
+            <div className="Rows h-96 w-full mt-20  flex flex-row gap-5">
+                <SkeletonTemplate />
+            </div>
+        )
+
 }
 
 

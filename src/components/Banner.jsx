@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "./Navbar";
 import requests from "../assets/Requests";
 import { useState, useEffect, useCallback } from "react";
-
 const Banner = () => {
     const [data, setData] = useState(null);
     const [error, setError] = useState('');
@@ -29,39 +28,43 @@ const Banner = () => {
         for(let i = 0; i < getCoverImages.length; i++){
             coverImages.push(getCoverImages[i])
         }
-
-       
+    }
     
 
-    }
     useEffect(() => {
-        setTimeout(() => {
-            changeIndex((currentIndex + 1));
-            
-        }, 5000);
+
+        const intervalId = setInterval(() => {
+            changeIndex(currentIndex + 1);
+        }, 2000);
 
         if(currentIndex >= coverImages.length){
             changeIndex(0)
         }
+
+        return () => clearInterval(intervalId)
     }, [currentIndex])
+
+
  
 
 
 
-    return (
-        <div className="banner" style={
-            {
-                backgroundImage: `url(${coverImages[currentIndex]})`,
-                backgroundSize : 'cover',
-                backgroundPosition: 'center',
-
-            }
-        }>
-            <Navbar />
-            <h1>This is a banner</h1>
-            <p>Movie Title</p>
-            <p>Movie description</p>
-        </div>
+    return data ?(
+        <div 
+        className="banner" 
+        style={{
+                background: `url(${coverImages[currentIndex]}) center/cover no-repeat`,
+        }
+    }>
+        <Navbar />
+        <h1>This is a banner</h1>
+        <p>Movie Title</p>
+        <p>Movie description</p>
+    </div>
+    ) : (
+        <div className="banner flex justify-center items-center flex-col">
+            <div className="loading"></div>
+        </div>  
     )
 }
 
