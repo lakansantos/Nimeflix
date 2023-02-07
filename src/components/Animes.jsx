@@ -7,7 +7,7 @@ const Animes = () => {
 
 
     return (
-        <div className="animes h-fit">
+        <div className="animes h-full">
             <Rows title={'Trending Now'} fetchURL={requests.trendingData}/>
             <Rows title={'Popular'} fetchURL={requests.popularData}/>
             <Rows title={'New Releases'} fetchURL={requests.recentlyAdded}/>
