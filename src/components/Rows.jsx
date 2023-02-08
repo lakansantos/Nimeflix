@@ -33,7 +33,7 @@ const Rows = ({title, fetchURL}) => {
             <div className="Rows h-fit w-full py-10 relative">
                 <h1 className="text-white text-4xl my-4 ">{title}</h1>
                 <button 
-                className="text-white bg-gray-800/80 px-5 py-2 rounded absolute top-auto z-50  bottom-auto h-96 w-auto left-0 flex justify-start items-center"
+                className="text-white bg-gray-800/80 px-5 py-2 rounded absolute top-auto z-50  bottom-auto h-96 w-auto left-0 flex justify-start items-center opacity-0 hover:opacity-100 duration-700 max-md:hidden"
                 onClick={() => {
                     if(containerRef.current){
                         containerRef.current.scrollLeft -= 750;
@@ -42,7 +42,7 @@ const Rows = ({title, fetchURL}) => {
                     <HiOutlineChevronLeft  style={{fontSize: '50px', float: 'left'}}/>
                 </button>
                 <button 
-                className="text-white bg-gray-800/80 px-5 py-2 rounded absolute top-auto z-50  bottom-auto h-96 w-auto right-0 flex justify-start items-center"
+                className="text-white bg-gray-800/80 px-5 py-2 rounded absolute top-auto z-50  bottom-auto h-96 w-auto right-0 flex justify-start items-center opacity-0 hover:opacity-100 duration-700 max-md:hidden"
                 onClick={() => {
                     if(containerRef.current){
                         containerRef.current.scrollLeft += 750;
