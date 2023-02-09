@@ -56,7 +56,6 @@ const Rows = ({title, fetchURL}) => {
                 setRightButtonClicked(true)
                 if(containerRef.current){
                     setScrollLeft(containerRef.current.scrollLeft += 750);
-                    console.log(containerRef.current.scrollLeft)
                 }    
             }}>
                 <HiOutlineChevronRight  style={{fontSize: '50px', float: 'left'}}/>
