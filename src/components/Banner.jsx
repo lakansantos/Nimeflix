@@ -65,7 +65,7 @@ const Banner = () => {
             <Navbar />
             <div className="title-description-container text-white h-[70%] z-[100] sm:h-[60%]">
                 <p className="text-5xl text-white font-bold mb-5 ml-5 text-center sm:text-left w-[95%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
-                <p className="w-[90%] ml-5 sm:w-1/2 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 333) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
+                <p className="w-[90%] ml-5 sm:w-1/2 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 300) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
             </div>
         </div>
         
