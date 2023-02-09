@@ -70,7 +70,7 @@ const Banner = () => {
         </div>
         
     ) : (
-        <div className="banner flex justify-center items-center flex-col h-[70vh]">
+        <div className="banner flex justify-center items-center flex-col h-[50vh] sm:h-[70vh]">
             <div className="loading"></div>
         </div>  
     )
