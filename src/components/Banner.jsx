@@ -11,7 +11,6 @@ const Banner = () => {
             .then(response => response.json())
             .then(data => setData(data))
             .catch(error => setError(error));
-            console.log(data)
     }, [])
 
     useEffect(() => {
@@ -22,14 +21,19 @@ const Banner = () => {
     let resultsData = []
 
     if(data){
-        // let getCoverImages = data.results.map(result => result.cover)
         let getResults = data.results.map(result => result)
 
         for(let i = 0; i < getResults.length; i++){
             resultsData.push(getResults[i])
         }
 
-        console.log(resultsData)
+        let countsDesc = []
+        for(let i = 0; i < resultsData.length; i++){
+            countsDesc.push(resultsData[i].description.length)
+        }
+
+        console.log(Math.min(...countsDesc))
+
     }
     
 
@@ -37,29 +41,31 @@ const Banner = () => {
 
         const intervalId = setInterval(() => {
             changeIndex(currentIndex + 1);
-        }, 15000);
+        }, 20000);
 
         if(currentIndex >= resultsData.length){
             changeIndex(0)
         }
 
+
         return () => clearInterval(intervalId)
     }, [currentIndex])
 
+    console.log(currentIndex)
 
-
-    return data ?(
+    return data && resultsData.length > 0 ?(
         <div 
-        className="banner" 
+        className="banner flex flex-col  justify-between" 
         style={{
-            background: `url(${resultsData[currentIndex].cover}) center/cover no-repeat rgba(0,0,0, .6)`,
+            background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .6)`,
             backgroundBlendMode: 'multiply'
         }
         }>
             <Navbar />
-            <h1>This is a banner</h1>
-            <p className="text-white">{resultsData[currentIndex].title.english}</p>
-            <p className="text-white">{resultsData[currentIndex].description}</p>
+            <div className="title-description-container text-white h-[50%] z-[100] sm:h-[60%]">
+                <p className="text-5xl text-white font-bold mb-5 ml-5 text-center sm:text-left w-[95%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
+                <p className="w-[90%] ml-5 sm:w-1/2 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 333) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
+            </div>
         </div>
         
     ) : (
