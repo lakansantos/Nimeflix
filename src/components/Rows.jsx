@@ -74,7 +74,7 @@ const Rows = ({title, fetchURL}) => {
             </div>
         </div>
     ) : (
-        <div className="Rows h-96 w-full mt-20  flex flex-row gap-5">
+        <div className="Skeleton-container h-96 w-full mt-20 overflow-auto flex flex-row gap-5">
             <SkeletonTemplate />
         </div>
         )

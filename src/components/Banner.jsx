@@ -27,12 +27,13 @@ const Banner = () => {
             resultsData.push(getResults[i])
         }
 
-        let countsDesc = []
-        for(let i = 0; i < resultsData.length; i++){
-            countsDesc.push(resultsData[i].description.length)
-        }
+        //just to check the title length
+        // let countsDesc = []
+        // for(let i = 0; i < resultsData.length; i++){
+        //     countsDesc.push(resultsData[i].description.length)
+        // }
 
-        console.log(Math.min(...countsDesc))
+        // console.log(Math.min(...countsDesc))
 
     }
     
@@ -55,21 +56,21 @@ const Banner = () => {
 
     return data && resultsData.length > 0 ?(
         <div 
-        className="banner flex flex-col  justify-between" 
+        className="banner h-[50vh] sm:h-[70vh] flex flex-col  justify-between" 
         style={{
-            background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .6)`,
+            background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .8)`,
             backgroundBlendMode: 'multiply'
         }
         }>
             <Navbar />
-            <div className="title-description-container text-white h-[50%] z-[100] sm:h-[60%]">
+            <div className="title-description-container text-white h-[70%] z-[100] sm:h-[60%]">
                 <p className="text-5xl text-white font-bold mb-5 ml-5 text-center sm:text-left w-[95%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
                 <p className="w-[90%] ml-5 sm:w-1/2 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 333) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
             </div>
         </div>
         
     ) : (
-        <div className="banner flex justify-center items-center flex-col">
+        <div className="banner flex justify-center items-center flex-col h-[70vh]">
             <div className="loading"></div>
         </div>  
     )
