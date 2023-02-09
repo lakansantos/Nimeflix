@@ -34,7 +34,7 @@ const Rows = ({title, fetchURL}) => {
 
 
     return data ? (
-        <div className="Rows h-fit w-full py-10 relative">
+        <div className="Rows h-fit  w-full py-10 relative ">
             <h1 className="text-white text-4xl my-4 ">{title}</h1>
             {rightButtonClicked && getScrollLeft > 0? 
                 <button 
@@ -61,11 +61,11 @@ const Rows = ({title, fetchURL}) => {
             }}>
                 <HiOutlineChevronRight  style={{fontSize: '50px', float: 'left'}}/>
             </button>
-            <div className="img-container h-fit w-full flex flex-row gap-5 overflow-auto max-h-5xl relative" ref={containerRef} style={{scrollBehavior: 'smooth',}}>
+            <div className="img-container  h-[500px] w-full flex  flex-row gap-5 overflow-auto max-h-5xl relative" ref={containerRef} style={{scrollBehavior: 'smooth',}}>
            
             {data ? data.results.map(result => (
-                <div className="w-full h-fit " key={result.id}>
-                    <img src={result.image} alt="" className="w-64 h-96 hover:cursor-pointer hover:scale-110 duration-700"/>
+                <div className="w-full h-fit hover:scale-110 duration-700" key={result.id}>
+                    <img src={result.image} alt="" className="w-64 h-96  filter-none hover:cursor-pointer hover:grayscale"/>
                     <div>
                         <p className="w-64 text-center text-white">{result.title.english ? (result.title.english.length > 50 ? result.title.english.slice(0, 50) + '...' : result.title.english) : result.title.romaji}</p>
                     </div>
