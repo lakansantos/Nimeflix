@@ -19,14 +19,17 @@ const Banner = () => {
         fetchTrending();
     }, [fetchTrending])
 
-    let coverImages = []
+    let resultsData = []
 
     if(data){
-        let getCoverImages = data.results.map(result => result.cover)
+        // let getCoverImages = data.results.map(result => result.cover)
+        let getResults = data.results.map(result => result)
 
-        for(let i = 0; i < getCoverImages.length; i++){
-            coverImages.push(getCoverImages[i])
+        for(let i = 0; i < getResults.length; i++){
+            resultsData.push(getResults[i])
         }
+
+        console.log(resultsData)
     }
     
 
@@ -34,9 +37,9 @@ const Banner = () => {
 
         const intervalId = setInterval(() => {
             changeIndex(currentIndex + 1);
-        }, 2000);
+        }, 15000);
 
-        if(currentIndex >= coverImages.length){
+        if(currentIndex >= resultsData.length){
             changeIndex(0)
         }
 
@@ -44,22 +47,21 @@ const Banner = () => {
     }, [currentIndex])
 
 
- 
-
-
 
     return data ?(
         <div 
         className="banner" 
         style={{
-                background: `url(${coverImages[currentIndex]}) center/cover no-repeat`,
+            background: `url(${resultsData[currentIndex].cover}) center/cover no-repeat rgba(0,0,0, .6)`,
+            backgroundBlendMode: 'multiply'
         }
-    }>
-        <Navbar />
-        <h1>This is a banner</h1>
-        <p>Movie Title</p>
-        <p>Movie description</p>
-    </div>
+        }>
+            <Navbar />
+            <h1>This is a banner</h1>
+            <p className="text-white">{resultsData[currentIndex].title.english}</p>
+            <p className="text-white">{resultsData[currentIndex].description}</p>
+        </div>
+        
     ) : (
         <div className="banner flex justify-center items-center flex-col">
             <div className="loading"></div>
