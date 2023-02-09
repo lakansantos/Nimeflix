@@ -17,7 +17,6 @@ const Banner = () => {
     useEffect(() => {
 
         fetchTrending();
-
     }, [fetchTrending])
 
     let coverImages = []
