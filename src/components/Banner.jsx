@@ -52,9 +52,10 @@ const Banner = () => {
         return () => clearInterval(intervalId)
     }, [currentIndex])
 
+
     return data && resultsData.length > 0 ?(
         <div 
-        className="banner h-[60vh] sm:h-[70vh] flex flex-col  justify-between" 
+        className="banner h-[70vh] sm:h-[70vh] flex flex-col  justify-between" 
         style={{
             background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .8)`,
             backgroundBlendMode: 'multiply'
