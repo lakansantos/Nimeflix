@@ -52,8 +52,6 @@ const Banner = () => {
         return () => clearInterval(intervalId)
     }, [currentIndex])
 
-    console.log(currentIndex)
-
     return data && resultsData.length > 0 ?(
         <div 
         className="banner h-[50vh] sm:h-[70vh] flex flex-col  justify-between" 
