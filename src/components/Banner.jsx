@@ -68,8 +68,8 @@ const Banner = () => {
                 <p className="w-[90%] ml-5 sm:w-1/2 h-fit text-justify  mb-5">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 170) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
                 </div>
                 <div className="w-[90%] ml-5 flex flex-row justify-center gap-[20px] sm:justify-start">   
-                    <button className="bg-white/70 text-black p-[10px] w-[100px] hover:bg-sky-400 hover:text-white">Play</button>
-                    <button className="bg-white/70 text-black p-[10px] w-[100px] hover:bg-sky-400 hover:text-white">More info</button>
+                    <button className="bg-white text-black font-bold p-[10px] w-[100px] hover:bg-hoverGray ">Play</button>
+                    <button className="bg-grayish p-[10px] w-[100px] hover:bg-darkGray text-white  font-bold">More info</button>
                 </div>
             </div>
             <div className="banner-fadeBottom"></div>

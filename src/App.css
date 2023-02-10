@@ -111,6 +111,8 @@ body::-webkit-scrollbar-thumb{
     width: 100%;
     height: 100%; 
   }
+
+
   
   .banner::after {
     display: none;

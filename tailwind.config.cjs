@@ -10,6 +10,9 @@ module.exports = {
     extend: {
       colors: {
         darkBlue: '#0a192f',
+        grayish: '#6d6d6eb3',
+        hoverGray: '#cbd5e1',
+        darkGray: '#404042b3',
       }
     },
   },
