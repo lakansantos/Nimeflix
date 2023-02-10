@@ -42,7 +42,7 @@ const Banner = () => {
 
         const intervalId = setInterval(() => {
             changeIndex(currentIndex + 1);
-        }, 1000);
+        }, 20000);
 
         if(currentIndex >= resultsData.length){
             changeIndex(0)
