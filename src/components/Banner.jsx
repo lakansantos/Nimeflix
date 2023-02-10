@@ -42,7 +42,7 @@ const Banner = () => {
 
         const intervalId = setInterval(() => {
             changeIndex(currentIndex + 1);
-        }, 20000);
+        }, 1000);
 
         if(currentIndex >= resultsData.length){
             changeIndex(0)
@@ -55,16 +55,22 @@ const Banner = () => {
 
     return data && resultsData.length > 0 ?(
         <div 
-        className="banner h-[70vh]  flex flex-col  justify-between" 
+        className="banner h-[70vh] sm:h-[70vh]  flex flex-col  justify-between" 
         style={{
             background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .8)`,
             backgroundBlendMode: 'multiply'
         }
         }>
             <Navbar />
-            <div className="title-description-container text-white h-[100%] z-[100] sm:h-[60%]">
-                <p className="text-4xl text-white font-bold mb-5 ml-5 h-[50%] flex justify-center items-center sm:block sm:h-fit max-h-50  text-center sm:text-left w-[90%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
-                <p className="w-[90%] ml-5 sm:w-1/2 h-1/2 sm:h-1/3 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 170) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
+            <div className="title-description-container text-white h-[100%] z-[99] sm:h-[60vh] flex flex-col justify-center sm:justify-center">
+                <div>
+                <p className="text-4xl text-white font-bold mb-5 ml-5 h-fit flex justify-center items-center sm:block sm:h-fit max-h-50  text-center sm:text-left w-[90%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
+                <p className="w-[90%] ml-5 sm:w-1/2 h-fit text-justify  mb-5">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 170) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
+                </div>
+                <div className="w-[90%] ml-5 flex flex-row justify-center gap-[20px] sm:justify-start">   
+                    <button className="bg-white/70 text-black p-[10px] w-[100px] hover:bg-sky-400 hover:text-white">Play</button>
+                    <button className="bg-white/70 text-black p-[10px] w-[100px] hover:bg-sky-400 hover:text-white">More info</button>
+                </div>
             </div>
             <div className="banner-fadeBottom"></div>
         </div>
