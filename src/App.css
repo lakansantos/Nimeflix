@@ -93,6 +93,17 @@ body::-webkit-scrollbar-thumb{
  
 
 @media only screen and (max-width: 639px) {
+
+  .banner-fadeBottom{
+
+    height:  7.4rem;
+    background-image: linear-gradient(
+      180deg, 
+      transparent,
+      #0a192f,
+      #0a192f
+    );
+  }
   .banner::before {
     content: unset;
     position: absolute;
@@ -103,10 +114,12 @@ body::-webkit-scrollbar-thumb{
   }
   
   .banner::after {
+    display: none;
     content: "";
     position: absolute;
-    bottom: -10%;
+    bottom: -15%;
     left: 0;
+    z-index: 100;
     width: 100%;
     height:30%;
     box-shadow: 0px 0px 20px 20px #0a192f;

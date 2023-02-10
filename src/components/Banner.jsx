@@ -66,6 +66,7 @@ const Banner = () => {
                 <p className="text-4xl text-white font-bold mb-5 ml-5 h-[50%] flex justify-center items-center sm:block sm:h-fit max-h-50  text-center sm:text-left w-[90%] tracking-widest">{resultsData[currentIndex] ? resultsData[currentIndex].title.english  ? resultsData[currentIndex].title.english : resultsData[currentIndex].title.romaji : '' }</p>
                 <p className="w-[90%] ml-5 sm:w-1/2 h-1/2 sm:h-1/3 text-justify">{resultsData[currentIndex] ? resultsData[currentIndex].description.replace(/<br>/g, '').slice(0, 170) + '...': 'No description'} <a href="" className="underline underline-offset-1">See more</a> </p>
             </div>
+            <div className="banner-fadeBottom"></div>
         </div>
         
     ) : (
