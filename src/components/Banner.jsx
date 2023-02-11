@@ -54,12 +54,13 @@ const Banner = () => {
 
 
     return data && resultsData.length > 0 ?(
-        <div 
+        <div id="banner"
         className="banner h-[70vh] sm:h-[70vh]  flex flex-col  justify-between" 
         style={{
             background: `url(${resultsData[currentIndex] ? resultsData[currentIndex].cover :null}) center/cover no-repeat rgba(0,0,0, .8)`,
             backgroundBlendMode: 'multiply'
         }
+        
         }>
             <Navbar />
             <div className="title-description-container text-white h-[100%] z-[99] sm:h-[60vh] flex flex-col justify-center sm:justify-center">

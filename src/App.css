@@ -21,8 +21,9 @@ body::-webkit-scrollbar-thumb{
   "rowsContainer rowsContainer rowsContainer" 1fr; */
 }
 
-
-
+html{
+  scroll-behavior: smooth
+}
 .banner {
   transition: 1s ease-out;
 }
