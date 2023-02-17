@@ -21,7 +21,7 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
         .then((responses => Promise.all(responses.map(response => response.json()))))
         .then((data => {
             setAllData(data)
-            setAllResultsData([...new Set(data.map(item => item.results).flat())])
+            setAllResultsData(data.map(item => item.results).flat())
         }))
         .catch((err => console.log(err)))
     }, [])
@@ -47,7 +47,9 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
 
     useEffect(() => {
         if(allResultsData){
-            let filteringData = allResultsData.filter((item => {
+
+            let uniqueData = [...new Set(allResultsData.map(item => JSON.stringify(item)))].map(str => JSON.parse(str));
+            let filteringData = uniqueData.filter((item => {
 
                 const englishTitle = item.title.english || '';
                 const romajiTitle = item.title.romaji || '';
@@ -60,9 +62,12 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
             }))
     
             setFilteredData(filteringData)
+
         }
     }, [query, allResultsData])
 
+
+    
     return(
         <>
         <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`}
@@ -84,12 +89,12 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
             {showSearchResults && filteredData ?
                   
                     <div style={{position: 'absolute', top: '100%'}}
-                    className="text-white border border-solid border-lightBlue w-full min-h-[100px] max-h-[500px] overflow-auto bg-black">
+                    className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90">
                         {filteredData.map((data, index) => (
-                        <div key={index} className='flex justify-center items-center my-2'>
+                        <div key={index} className='flex justify-center items-center my-5 sm:my-2'>
                             <div className='w-full flex h-[50px] justify-start items-center'>
-                                <img src={data.image} alt="title image" className='w-[50px] h-full mr-5'/>
-                                {data.title.english ? data.title.english.slice(0, 50) + '...' : data.title.romaji ? data.title.romaji :  data.title.native}
+                                <img src={data.image} alt="title image" className='w-[50px] h-full mx-5'/>
+                                <p className='w-full'>{data.title.english ? (data.title.english.length > 30 ? data.title.english.slice(0, 50) + '...' : data.title.english) : data.title.romaji ? data.title.romaji :  data.title.native}</p>
                             </div>
                         </div>
         ))}
