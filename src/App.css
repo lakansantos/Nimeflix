@@ -91,7 +91,36 @@ html{
     transform: rotate(360deg);
   }
 }
- 
+
+@keyframes showInput {
+  0% {
+    opacity: 0;
+    transform: translateX(360px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes movingSearch {
+  0% {
+    opacity: 1;
+    transform: translateX(50px);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 
 @media only screen and (max-width: 639px) {
 
