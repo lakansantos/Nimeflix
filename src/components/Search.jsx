@@ -69,11 +69,10 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
 
     
     return(
-        <>
-        <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`}
-        >
+
+        <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`}>
             <input type="text"
-            placeholder="Search a movie, title, genre..."
+            placeholder="Search an anime title..."
             className={!showInputSearch ? "opacity-0" : "opacity-1 w-full  h-full indent-2"} 
             style={showInputSearch ? {animation: '.4s linear showInput'} : {}}
             onChange={(e) => handleSearch(e)}
@@ -86,24 +85,30 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
                 style={showInputSearch ? {position: 'absolute', top: 0, right: 0, width: '60px', height: '100%', animation: '.1s linear movingSearch'}: {}}
                 />
             </li>
-            {showSearchResults && filteredData ?
-                  
+            {showSearchResults && filteredData && filteredData.length > 0?
+                (
+                <div style={{position: 'absolute', top: '100%'}}
+                className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90">
+                    {filteredData.map((data, index) => (
+                    <div key={index} className='flex justify-center items-center my-5 sm:my-5'>
+                        <div className='w-full flex h-[100px] justify-start items-center hover:bg-white/10 hover:cursor-pointer'>
+                            <img src={data.image} alt="title image" className='w-[100px] h-full mx-5'/>
+                            <p className='w-full'>{data.title.english ? (data.title.english.length > 30 ? data.title.english.slice(0, 50) + '...' : data.title.english) : data.title.romaji ? data.title.romaji :  data.title.native}</p>
+                        </div>
+                    </div>
+                    ))}
+                </div>
+                )
+                : showSearchResults ?
+                (
                     <div style={{position: 'absolute', top: '100%'}}
                     className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90">
-                        {filteredData.map((data, index) => (
-                        <div key={index} className='flex justify-center items-center my-5 sm:my-2'>
-                            <div className='w-full flex h-[50px] justify-start items-center'>
-                                <img src={data.image} alt="title image" className='w-[50px] h-full mx-5'/>
-                                <p className='w-full'>{data.title.english ? (data.title.english.length > 30 ? data.title.english.slice(0, 50) + '...' : data.title.english) : data.title.romaji ? data.title.romaji :  data.title.native}</p>
-                            </div>
-                        </div>
-        ))}
+                    <p className='text-center my-5'>No results found.</p>
                     </div>
-                   : null
+                ) : null
             }      
         </div>
-        
-        </>
+
     )
 
 }
