@@ -1,6 +1,6 @@
-import {AiOutlineSearch} from 'react-icons/ai'
+import {AiOutlineSearch, AiOutlineClose} from 'react-icons/ai'
 import requests from '../assets/Requests';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef} from 'react';
 
 const Search = ({showInputSearch, setShowInputSearch}) => { 
 
@@ -10,6 +10,8 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
     const [query, setQuery] = useState('')
     const [filteredData, setFilteredData] = useState([])
     const [makeSet, setSet] = useState([])
+    const ref = useRef(null);
+    const [removeQuery, handleRemoveQuery] = useState(false)
  
     const fetchAllData = useCallback(() => {
         Promise.all([
@@ -35,6 +37,8 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
         setQuery(e.target.value)    
     }
 
+
+
     useEffect(() => {
         if(query){
             setShowSearchResults(true)
@@ -42,6 +46,21 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
             setShowSearchResults(false)
         }
     }, [query])
+
+    useEffect(() => {
+        function handleClickOutside (event) {
+            if(ref.current && !ref.current.contains(event.target)){
+                setShowSearchResults(false)
+                setShowInputSearch(false)
+            } 
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return (() => {
+            document.removeEventListener('mousedown', handleClickOutside)
+        })
+    }, [ref])
 
    
 
@@ -67,25 +86,36 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
     }, [query, allResultsData])
 
 
-    
+
     return(
 
-        <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`}>
+        <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`} ref={ref} >
             <input type="text"
             placeholder="Search an anime title..."
             className={!showInputSearch ? "opacity-0" : "opacity-1 w-full  h-full indent-2"} 
             style={showInputSearch ? {animation: '.4s linear showInput'} : {}}
             onChange={(e) => handleSearch(e)}
+            value={query}
            />
+
             <li>
                 <AiOutlineSearch 
                 fontSize={'2.5rem'} color={'white'} 
                 className={`hover:cursor-pointer w-[60px] h-[30px] ${!showInputSearch ? '' : 'bg-lightBlue'}`} 
-                onClick={() => setShowInputSearch(!showInputSearch)}
+                onClick={() => setShowInputSearch(true)}
                 style={showInputSearch ? {position: 'absolute', top: 0, right: 0, width: '60px', height: '100%', animation: '.1s linear movingSearch'}: {}}
                 />
             </li>
-            {showSearchResults && filteredData && filteredData.length > 0?
+
+            {query !== '' && showInputSearch &&
+             <AiOutlineClose 
+                fontSize={'1.2rem'} 
+                className='absolute  right-[65px] hover:cursor-pointer '
+                onClick={() => setQuery('')}
+            /> 
+            }
+
+            {showSearchResults &&  filteredData && filteredData.length > 0?
                 (
                 <div style={{position: 'absolute', top: '100%'}}
                 className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90">
@@ -102,7 +132,7 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
                 : showSearchResults ?
                 (
                     <div style={{position: 'absolute', top: '100%'}}
-                    className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90">
+                    className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90"> 
                     <p className='text-center my-5'>No results found.</p>
                     </div>
                 ) : null
