@@ -14,14 +14,6 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
     const ref = useRef(null);
  
     useEffect(() => {
-        if(query){
-            setShowSearchResults(true)
-        } else{
-            setShowSearchResults(false)
-        }
-    }, [query])
-
-    useEffect(() => {
         function handleClickOutside (event) {
             if(ref.current && !ref.current.contains(event.target)){
                 setShowSearchResults(false)
@@ -36,14 +28,9 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
         })
     }, [ref])
 
-
-    
     const handleSearch = (e) => {
         setQuery(e.target.value)    
     }   
-
-   
-
 
     useEffect(() => {
         let timeoutId;
@@ -51,6 +38,7 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
 
         if(query !== ''){
             setIsLoading(true);
+            setShowSearchResults(true)
             timeoutId = setTimeout(async () => {
                 try{
                     const response = await fetch(`https://api.consumet.org/meta/anilist/${query}`);
@@ -68,20 +56,16 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
                 }
             }, 200)
 
-            return () => clearTimeout(timeoutId);
-            
+            return () => clearTimeout(timeoutId);     
+        } else {
+            setShowSearchResults(false)
         }
     }, [query]);
 
     
-    
-
-    useEffect(() => {
-        if(data?.results){
-            setFilteredData(data.results)
-        }
-    }, [data])
-
+    if(data){
+        setFilteredData(data.results)
+    }
     return(
 
         <div className={`flex items-center justify-end relative  w-[100%] h-1/2 ${showSearchResults ? '' : 'overflow-hidden'}`} ref={ref} >
