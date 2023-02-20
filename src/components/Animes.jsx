@@ -1,10 +1,9 @@
 
-import {React, useState, useCallback, useEffect} from "react";
+import {React} from "react";
 import requests from "../assets/Requests";
 import Rows from "./Rows";
 
-const Animes = () => {
-
+const Animes = () => {  
 
     return (
         <div className="animes h-full">

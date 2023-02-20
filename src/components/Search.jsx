@@ -4,41 +4,15 @@ import { useState, useCallback, useEffect, useRef} from 'react';
 
 const Search = ({showInputSearch, setShowInputSearch}) => { 
 
-    const [allData, setAllData] = useState(null)
-    const [allResultsData, setAllResultsData] = useState([])
+    const [data, setData] = useState(null)
     const [showSearchResults, setShowSearchResults] = useState(false)
     const [query, setQuery] = useState('')
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
     const [filteredData, setFilteredData] = useState([])
-    const [makeSet, setSet] = useState([])
+
     const ref = useRef(null);
-    const [removeQuery, handleRemoveQuery] = useState(false)
  
-    const fetchAllData = useCallback(() => {
-        Promise.all([
-            fetch(requests.trendingData),
-            fetch(requests.popularData),
-            fetch(requests.recentlyAdded),
-        ])
-
-        .then((responses => Promise.all(responses.map(response => response.json()))))
-        .then((data => {
-            setAllData(data)
-            setAllResultsData(data.map(item => item.results).flat())
-        }))
-        .catch((err => console.log(err)))
-    }, [])
-    
-    useEffect(() => {
-        fetchAllData();
-    }, [fetchAllData])
-    
-    
-    const handleSearch = (e) => {
-        setQuery(e.target.value)    
-    }
-
-
-
     useEffect(() => {
         if(query){
             setShowSearchResults(true)
@@ -62,30 +36,51 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
         })
     }, [ref])
 
+
+    
+    const handleSearch = (e) => {
+        setQuery(e.target.value)    
+    }   
+
    
 
+
     useEffect(() => {
-        if(allResultsData){
+        let timeoutId;
+        setIsLoading(false);
 
-            let uniqueData = [...new Set(allResultsData.map(item => JSON.stringify(item)))].map(str => JSON.parse(str));
-            let filteringData = uniqueData.filter((item => {
+        if(query !== ''){
+            setIsLoading(true);
+            timeoutId = setTimeout(async () => {
+                try{
+                    const response = await fetch(`https://api.consumet.org/meta/anilist/${query}`);
+                    if(!response.ok){
+                        throw new Error('Error response not okay')
+                    }
+                    const data = await response.json();
 
-                const englishTitle = item.title.english || '';
-                const romajiTitle = item.title.romaji || '';
-                const nativeTitle = item.title.native || '';
-                return (
-                    englishTitle.toLowerCase().includes(query.toLowerCase()) ||
-                    romajiTitle.toLowerCase().includes(query.toLowerCase()) ||
-                    nativeTitle.toLowerCase().includes(query.toLowerCase())
-                ) 
-            }))
-    
-            setFilteredData(filteringData)
+                    setFilteredData(data.results)
+                } catch (error){
+                    setFilteredData([]);
+                    setError('Error Fetching Data');
+                } finally {
+                    setIsLoading(false);
+                }
+            }, 200)
 
+            return () => clearTimeout(timeoutId);
+            
         }
-    }, [query, allResultsData])
+    }, [query]);
 
+    
+    
 
+    useEffect(() => {
+        if(data?.results){
+            setFilteredData(data.results)
+        }
+    }, [data])
 
     return(
 
@@ -129,11 +124,16 @@ const Search = ({showInputSearch, setShowInputSearch}) => {
                     ))}
                 </div>
                 )
-                : showSearchResults ?
+                : showSearchResults  && !isLoading ?
                 (
                     <div style={{position: 'absolute', top: '100%'}}
                     className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90"> 
-                    <p className='text-center my-5'>No results found.</p>
+                    <p className='text-center my-5'>Sorry, no data found! </p>
+                    </div>
+                ) : isLoading ? (
+                    <div style={{position: 'absolute', top: '100%'}}
+                    className="search-container text-white border border-solid border-lightBlue w-full min-h-fit max-h-[500px] overflow-auto bg-black/90"> 
+                    <p className='flex justify-center items-center'>Loading please wait...<span className='loading w-[20px] h-[20px]'></span></p>
                     </div>
                 ) : null
             }      
